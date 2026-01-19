@@ -11,6 +11,7 @@ on:
 env:
  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ environment: ${{ vars.ENVIRONMENT}}
 
 jobs:
   terraform_init:
@@ -40,7 +41,7 @@ jobs:
         with:
           approvers: nebojsamilosav
           minimum-approvals: 1  
-          issue-title: "Approve Terraform Apply"
+          issue-title: "Approve Terraform Apply on $env"
           secret: ${{ github.TOKEN }}
 
   terraform_apply:
