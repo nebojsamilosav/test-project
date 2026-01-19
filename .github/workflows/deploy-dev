@@ -1,0 +1,25 @@
+name: DEV deployment
+
+on: workflow_dispatch  # trigger manualy via UI
+
+# on:
+#   push:
+#     branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        working-directory: env/dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
