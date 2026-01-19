@@ -41,7 +41,7 @@ jobs:
         with:
           approvers: nebojsamilosav
           minimum-approvals: 1  
-          issue-title: "Approve Terraform Apply on $env"
+          issue-title: "Approve Terraform Apply on ${{ vars.ENVIRONMENT}}"
           secret: ${{ github.TOKEN }}
 
   terraform_apply:
