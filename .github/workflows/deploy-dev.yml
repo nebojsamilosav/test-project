@@ -19,7 +19,7 @@ jobs:
     environment: dev
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/${{ vars.ENVIRONMENT}}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
@@ -33,7 +33,7 @@ jobs:
     environment: dev
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/${{ vars.ENVIRONMENT}}
     needs: terraform_init
     steps:
       - name: Manual approval
@@ -52,7 +52,7 @@ jobs:
     needs: approval
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/${{ vars.ENVIRONMENT}}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
