@@ -45,7 +45,8 @@ jobs:
         with:
           approvers: nebojsamilosav
           minimum-approvals: 1  
-          issue-title: "Approve Terraform Apply"  
+          issue-title: "Approve Terraform Apply"
+          secret: ${{ github.TOKEN }}
 
   terraform_apply:
     runs-on: ubuntu-latest
