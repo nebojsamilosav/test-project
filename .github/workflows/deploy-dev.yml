@@ -11,6 +11,7 @@ on:
 env:
  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ env: ${{ vars.ENVIRONMENT}}
 
 jobs:
   terraform_init:
@@ -18,7 +19,7 @@ jobs:
     environment: dev
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/${{ vars.ENVIRONMENT}}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
@@ -32,7 +33,7 @@ jobs:
     environment: dev
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/${{ vars.ENVIRONMENT}}
     needs: terraform_init
     steps:
       - name: Manual approval
@@ -40,7 +41,7 @@ jobs:
         with:
           approvers: nebojsamilosav
           minimum-approvals: 1  
-          issue-title: "Approve Terraform Apply"
+          issue-title: "Approve Terraform Apply on ${{ vars.ENVIRONMENT}}"
           secret: ${{ github.TOKEN }}
 
   terraform_apply:
@@ -51,7 +52,7 @@ jobs:
     needs: approval
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/${{ vars.ENVIRONMENT}}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
