@@ -51,6 +51,7 @@ jobs:
   terraform_apply:
     runs-on: ubuntu-latest
     environment: dev
+    needs: approval
     defaults:
       run:
         working-directory: env/dev
