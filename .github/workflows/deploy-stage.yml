@@ -12,7 +12,7 @@ jobs:
     environment: stage
     defaults:
       run:
-        working-directory: env/dev
+        working-directory: env/stage
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
