@@ -14,7 +14,7 @@ jobs:
     environment: prod
     defaults:
       run:
-        working-directory: env/prod
+        working-directory: env/${{ vars.ENVIRONMENT}}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
@@ -28,7 +28,7 @@ jobs:
     environment: prod
     defaults:
       run:
-        working-directory: env/prod
+        working-directory: env/${{ vars.ENVIRONMENT}}
     needs: terraform_init
     steps:
       - name: Manual approval
@@ -36,7 +36,7 @@ jobs:
         with:
           approvers: nebojsamilosav
           minimum-approvals: 1  # might want to increase to 2 if we want to be paranoid :)
-          issue-title: "Approve Terraform Apply"
+          issue-title: "Approve Terraform Apply on ${{ vars.ENVIRONMENT}}"
           secret: ${{ github.TOKEN }}
 
   terraform_apply:
@@ -47,7 +47,7 @@ jobs:
     needs: approval
     defaults:
       run:
-        working-directory: env/prod
+        working-directory: env/${{ vars.ENVIRONMENT}}
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
